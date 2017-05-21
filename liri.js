@@ -1,6 +1,7 @@
 var keys = require("./keys.js");
 var Twitter = require('twitter');
 var spotify = require('spotify');
+var request = require('request');
 
 var client = new Twitter({
     consumer_key: "Qcst4zcukIvkzsaZQaCfgrNIW",
@@ -66,5 +67,11 @@ spotify.search({type: 'track', query: input2}, function(err, data){
             console.log(data.tracks.items[i].preview_url);
             console.log("");
         }
+    }
+})
+
+request('http://www.omdbapi.com/?t='+ input2 +'?apikey=23fb74b2', function(error, response, body){
+    if  (!error && input === "movie-this" && response.statusCode === 200){
+        console.log(JSON.stringify(body, null, 2));
     }
 })
