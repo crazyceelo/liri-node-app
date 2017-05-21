@@ -17,6 +17,12 @@ var key = ({
     twitterConsumerSecret : keys.twitterKeys.consumer_secret
 })
 
+console.log("---------------");
+console.log("enter any of these commands to see results");
+console.log("");
+console.log("spotify-this-song <song name>");
+console.log("movie-this <movie title>");
+console.log("my-tweets");
 // console.log(key.twitterToken);
 // console.log(key.twitterTokenSecret);
 // console.log(key.twitterConsumerKey);
@@ -47,9 +53,9 @@ client.get('statuses/user_timeline', params, function (error, tweets, response){
         }
     }
 
-    else {
-        console.log(error, "-->" + " Please type <my-tweets> to get the last 20 tweets");
-    }
+    // else {
+    //     console.log(error, "-->" + " Please type <my-tweets> to get the last 20 tweets");
+    // }
 })
 
 spotify.search({type: 'track', query: input2}, function(err, data){
@@ -58,20 +64,45 @@ spotify.search({type: 'track', query: input2}, function(err, data){
         return;
     }
 
+    else if (input2 == null && !err && input === "spotify-this-song"){
+        spotify.search({type: 'track', query: "The Sign"}, function(err, data){
+            if (err) {
+                console.log('Error occurred: ' + err);
+                return;
+            }
+            console.log("");
+            // console.log(JSON.stringify(data, null, 2));
+            console.log("Album: " + data.tracks.items[4].album.name);
+            console.log("Artist: " + data.tracks.items[4].album.artists[0].name);
+            console.log("Song name: " + data.tracks.items[4].name);
+            console.log("Preview URL: " + data.tracks.items[4].preview_url)
+            console.log("");
+        })
+    }
+
     else if (!err && input == "spotify-this-song") {
         for (var i = 0; i < data.tracks.items.length; i++){
             console.log("");
             console.log("Album: " + data.tracks.items[i].album.name);
             console.log("Artist: " + data.tracks.items[i].album.artists[0].name);
             console.log("song name: " + data.tracks.items[i].name);
-            console.log(data.tracks.items[i].preview_url);
+            console.log("Preview URL: " + data.tracks.items[i].preview_url);
             console.log("");
         }
     }
 })
 
-request('http://www.omdbapi.com/?t='+ input2 +'?apikey=23fb74b2', function(error, response, body){
+
+request('http://www.omdbapi.com/?i=tt3896198&apikey=23fb74b2&t='+ input2 +'', function(error, response, body){
     if  (!error && input === "movie-this" && response.statusCode === 200){
-        console.log(JSON.stringify(body, null, 2));
+        // console.log(JSON.parse(body));
+        console.log("Movie Title: " + JSON.parse(body).Title);
+        console.log("Year: " + JSON.parse(body).Year);
+        console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
+        console.log("Country: " + JSON.parse(body).Country);
+        console.log("Language: " + JSON.parse(body).Language);
+        console.log("Plot: " + JSON.parse(body).Plot);
+        console.log("Actors: " + JSON.parse(body).Actors);
+        console.log("rotten tomatoes URL: " + "pending");
     }
 })
