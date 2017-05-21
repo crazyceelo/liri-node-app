@@ -1,0 +1,27 @@
+{
+  "name": "my-liri-bot",
+  "version": "1.0.0",
+  "description": "Homework",
+  "main": "liri.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crazyceelo/liri-node-app.git"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "Carlos Perez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crazyceelo/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/crazyceelo/liri-node-app#readme",
+  "dependencies": {
+    "request": "^2.81.0",
+    "spotify": "^0.3.0",
+    "twitter": "^1.7.0"
+  }
+}
