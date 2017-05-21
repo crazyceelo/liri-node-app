@@ -47,6 +47,9 @@ client.get('statuses/user_timeline', params, function (error, tweets, response){
     if (input === "my-tweets") {
         // console.log(tweets);
         // console.log(JSON.stringify(tweets, null, 2));
+        console.log("-----------")
+        console.log("results")
+        console.log("-----------")
 
         for (var i = 0; i < tweets.length; i++){
             console.log("Tweet "+ [i + 1] + ": "+ "(" + tweets[i].created_at + ") " + tweets[i].text);
@@ -70,7 +73,9 @@ spotify.search({type: 'track', query: input2}, function(err, data){
                 console.log('Error occurred: ' + err);
                 return;
             }
-            console.log("");
+            console.log("-----------")
+            console.log("results")
+            console.log("-----------")
             // console.log(JSON.stringify(data, null, 2));
             console.log("Album: " + data.tracks.items[4].album.name);
             console.log("Artist: " + data.tracks.items[4].album.artists[0].name);
@@ -82,7 +87,9 @@ spotify.search({type: 'track', query: input2}, function(err, data){
 
     else if (!err && input == "spotify-this-song") {
         for (var i = 0; i < data.tracks.items.length; i++){
-            console.log("");
+            console.log("-----------")
+            console.log("results")
+            console.log("-----------")
             console.log("Album: " + data.tracks.items[i].album.name);
             console.log("Artist: " + data.tracks.items[i].album.artists[0].name);
             console.log("song name: " + data.tracks.items[i].name);
@@ -90,12 +97,40 @@ spotify.search({type: 'track', query: input2}, function(err, data){
             console.log("");
         }
     }
+
+    // I might want to use this if I want this to show up when all inputs are null
+    // else if (!err && input == null && input2 == null){
+    //     console.log("test");
+    // }
+
+    
 })
 
 
 request('http://www.omdbapi.com/?i=tt3896198&apikey=23fb74b2&t='+ input2 +'', function(error, response, body){
-    if  (!error && input === "movie-this" && response.statusCode === 200){
+    
+    if (input2 == null && !error && input === "movie-this" && response.statusCode === 200){
+        request('http://www.omdbapi.com/?i=tt3896198&apikey=23fb74b2&t=Mr.Nobody', function(error, response, body){
+            // console.log(JSON.parse(body));
+            console.log("-----------")
+            console.log("results")
+            console.log("-----------")
+            console.log("Movie Title: " + JSON.parse(body).Title);
+            console.log("Year: " + JSON.parse(body).Year);
+            console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
+            console.log("Country: " + JSON.parse(body).Country);
+            console.log("Language: " + JSON.parse(body).Language);
+            console.log("Plot: " + JSON.parse(body).Plot);
+            console.log("Actors: " + JSON.parse(body).Actors);
+            console.log("rotten tomatoes URL: " + "pending");
+        })
+    }
+    
+    else if  (!error && input === "movie-this" && response.statusCode === 200){
         // console.log(JSON.parse(body));
+        console.log("-----------")
+        console.log("results")
+        console.log("-----------")
         console.log("Movie Title: " + JSON.parse(body).Title);
         console.log("Year: " + JSON.parse(body).Year);
         console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
