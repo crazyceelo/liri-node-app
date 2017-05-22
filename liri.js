@@ -24,6 +24,7 @@ console.log("");
 console.log("spotify-this-song <song name>");
 console.log("movie-this <movie title>");
 console.log("my-tweets");
+console.log("do-what-it-says");
 // console.log(key.twitterToken);
 // console.log(key.twitterTokenSecret);
 // console.log(key.twitterConsumerKey);
@@ -141,61 +142,30 @@ request('http://www.omdbapi.com/?i=tt3896198&apikey=23fb74b2&t='+ input2 +'', fu
 })
 
 
-fs.readFile('./random.txt', 'utf8', function(error, data){
-    if (error){
-        return console.log(error);
-    }
 
+fs.readFile('./random.txt', 'utf8', function(error, data){
     var split = data.split(",");
     for(var i = 0; i < split.length; i++){
         // console.log(split[i]);
     }
     var a = split[0];
     var b = split[1];
-    console.log(a);
-    console.log(b);
-
-    // spotify.search({type: 'track', query: b}, function (err, data){
-    //     // console.log(JSON.stringify(data, null, 2));
-    //     console.log("-----------")
-    //     console.log("results")
-    //     console.log("-----------")
-    //     // console.log(JSON.stringify(data, null, 2));
-    //     console.log("Album: " + data.tracks.items[0].album.name);
-    //     console.log("Artist: " + data.tracks.items[0].album.artists[0].name);
-    //     console.log("Song name: " + data.tracks.items[0].name);
-    //     console.log("Preview URL: " + data.tracks.items[0].preview_url)
-    //     console.log("");
-    //     })
-    // }
+    var input2 = b;
+    // console.log(input2);
+    if (!error && input === "do-what-it-says"){
+        spotify.search({type: 'track', query: input2}, function(err, data){
+            // console.log(JSON.stringify(data, null, 2));
+            console.log("-----------")
+            console.log("results")
+            console.log("-----------")
+            // console.log(JSON.stringify(data, null, 2));
+            console.log("Album: " + data.tracks.items[0].album.name);
+            console.log("Artist: " + data.tracks.items[0].album.artists[0].name);
+            console.log("Song name: " + data.tracks.items[0].name);
+            console.log("Preview URL: " + data.tracks.items[0].preview_url)
+            console.log("");
+        })
+    }
 });
+
 // spotify.search({type: 'track', query: input2}, function(err, data){
-//         if (err) {
-//             console.log('Error occurred: ' + err);
-//             return;
-//         }
-
-// var geocoder = require("geocoder");
-// var inquirer = require("inquirer");
-
-// // Prompt the user to provide location information.
-// inquirer.prompt([
-
-//   {
-//     type: "input",
-//     name: "userInput",
-//     message: "Which location or landmark would you like to geocode?"
-//   }
-
-// // After the prompt, store the user's response in a variable called location.
-// ]).then(function(location) {
-
-//   // console.log(location.userInput);
-
-//   // Then use the Google Geocoder to Geocode the address
-//   geocoder.geocode(location.userInput, function(err, data) {
-
-//     console.log(JSON.stringify(data, null, 2));
-//   });
-
-// });
