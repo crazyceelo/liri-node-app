@@ -141,3 +141,5 @@ request('http://www.omdbapi.com/?i=tt3896198&apikey=23fb74b2&t='+ input2 +'', fu
         console.log("rotten tomatoes URL: " + "pending");
     }
 })
+
+// fs.readFile('./random.txt', 'utf8', callback);
