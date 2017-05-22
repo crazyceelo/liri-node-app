@@ -162,8 +162,9 @@ fs.readFile('./random.txt', 'utf8', function(error, data){
     }
 });
 
-var allInputs = input + " and "+ input2;
+var allInputs = input + " + "+ input2;
 
 fs.appendFile("log.txt", ", " + allInputs, 'utf8', function(err, data){
-    
+    console.log("");
+    console.log("input logged");
 })
