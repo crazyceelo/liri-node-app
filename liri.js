@@ -22,20 +22,25 @@ var key = ({
 })
 
 // instructions for user when invoking "node liri.js"
-console.log("---------------");
+console.log("---------------instructions----------------");
 console.log("first you must type: node liri.js")
 console.log("then type any of the following commands");
 console.log("example: node liri.js spotify-this-song fancy");
 console.log("");
-console.log("spotify-this-song <song name>");
-console.log("movie-this <movie title>");
-console.log("my-tweets");
-console.log("do-what-it-says");
+console.log("command: spotify-this-song <song name>");
+console.log("command: movie-this <movie title>");
+console.log("command: my-tweets");
+console.log("command: do-what-it-says");
 
 
 // variables for user inputs
 var input = process.argv[2];
-var input2 = process.argv[3];
+var input1 = process.argv;
+var input2 = [];
+for (var i = 3; i < input1.length; i++){
+    input2.push(input1[i]);
+}
+
 
 // invokes a users last 20 tweets and displays them.
 var params = {solracias: 'nodejs'};
@@ -62,7 +67,7 @@ function spot(input2){
             return;
         }
 
-        else if (input2 == null && !err && input === "spotify-this-song"){
+        else if (input2 == "" && !err && input === "spotify-this-song"){
             spotify.search({type: 'track', query: "The Sign"}, function(err, data){
                 if (err) {
                     console.log('Error occurred: ' + err);
@@ -102,7 +107,7 @@ spot(input2);
 // invoke a movie title and display details about the movie.
 request('http://www.omdbapi.com/?i=tt3896198&apikey=23fb74b2&t='+ input2 +'', function(error, response, body){
     
-    if (input2 == null && !error && input === "movie-this" && response.statusCode === 200){
+    if (input2 == "" && !error && input === "movie-this" && response.statusCode === 200){
         request('http://www.omdbapi.com/?i=tt3896198&apikey=23fb74b2&t=Mr.Nobody', function(error, response, body){
             // console.log(JSON.parse(body));
             console.log("-----------")
@@ -164,7 +169,7 @@ fs.readFile('./random.txt', 'utf8', function(error, data){
 
 var allInputs = input + " + "+ input2;
 
-fs.appendFile("log.txt", ", " + allInputs, 'utf8', function(err, data){
+fs.appendFile("log.txt", "||| " + allInputs, 'utf8', function(err, data){
     console.log("");
     console.log("input logged");
 })
