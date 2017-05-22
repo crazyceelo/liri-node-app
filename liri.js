@@ -2,6 +2,7 @@ var keys = require("./keys.js");
 var Twitter = require('twitter');
 var spotify = require('spotify');
 var request = require('request');
+var fs = require('fs');
 
 var client = new Twitter({
     consumer_key: "Qcst4zcukIvkzsaZQaCfgrNIW",
@@ -142,4 +143,17 @@ request('http://www.omdbapi.com/?i=tt3896198&apikey=23fb74b2&t='+ input2 +'', fu
     }
 })
 
-// fs.readFile('./random.txt', 'utf8', callback);
+var a = "";
+var b = "";
+
+fs.readFile('./random.txt', 'utf8', function(error, data){
+    if (error){
+        return console.log(error);
+    }
+    var split = data.split(",");
+    for(var i = 0; i < split.length; i++){
+        // console.log(split[i]);
+    }
+    a = split[0];
+    b = split[1];
+}).then
