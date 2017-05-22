@@ -19,7 +19,9 @@ var key = ({
 })
 
 console.log("---------------");
-console.log("enter any of these commands to see results");
+console.log("first you must type: node liri.js")
+console.log("then type any of the following commands");
+console.log("example: node liri.js spotify-this-song fancy");
 console.log("");
 console.log("spotify-this-song <song name>");
 console.log("movie-this <movie title>");
