@@ -1,9 +1,11 @@
+// npm require variables
 var keys = require("./keys.js");
 var Twitter = require('twitter');
 var spotify = require('spotify');
 var request = require('request');
 var fs = require('fs');
 
+// twitter keys
 var client = new Twitter({
     consumer_key: "Qcst4zcukIvkzsaZQaCfgrNIW",
     consumer_secret: "zEfT1J7ATCKYnZqOpfE9BHlgPDFVs2OcouoHbvIU8E6SAeysfm",
@@ -11,6 +13,7 @@ var client = new Twitter({
     access_token_secret: "TK7HImU2IdrhkWgP92d3hdpsQqiPNd9EGR9Q6hhrK9UJ0"
 })
 
+// twitter keys from the ./keys.js. 
 var key = ({
     twitterToken : keys.twitterKeys.access_token_key,
     twitterTokenSecret : keys.twitterKeys.access_token_secret,
@@ -18,6 +21,7 @@ var key = ({
     twitterConsumerSecret : keys.twitterKeys.consumer_secret
 })
 
+// instructions for user when invoking "node liri.js"
 console.log("---------------");
 console.log("first you must type: node liri.js")
 console.log("then type any of the following commands");
@@ -27,25 +31,13 @@ console.log("spotify-this-song <song name>");
 console.log("movie-this <movie title>");
 console.log("my-tweets");
 console.log("do-what-it-says");
-// console.log(key.twitterToken);
-// console.log(key.twitterTokenSecret);
-// console.log(key.twitterConsumerKey);
-// console.log(key.twitterConsumerSecret);
 
+
+// variables for user inputs
 var input = process.argv[2];
 var input2 = process.argv[3];
 
-// var myTweets = process.argv[2];
-// var spotifyThisSong = process.argv[3];
-// var movieThis = process.argv[4];
-// var doWhatItSays = process.argv[5];
-
-// console.log(myTweets);
-// console.log(spotifyThisSong);
-// console.log(movieThis);
-// console.log(doWhatItSays);
-
-
+// invokes a users last 20 tweets and displays them.
 var params = {solracias: 'nodejs'};
 client.get('statuses/user_timeline', params, function (error, tweets, response){
         if (input === "my-tweets") {
@@ -59,12 +51,10 @@ client.get('statuses/user_timeline', params, function (error, tweets, response){
                 console.log("Tweet "+ [i + 1] + ": "+ "(" + tweets[i].created_at + ") " + tweets[i].text);
             }
         }
-
-        // else {
-        //     console.log(error, "-->" + " Please type <my-tweets> to get the last 20 tweets");
-        // }
     })
 
+// spotify function to invoke songs and display details 
+// about the artists that have similar song names.
 function spot(input2){
         spotify.search({type: 'track', query: input2}, function(err, data){
         if (err) {
@@ -104,10 +94,12 @@ function spot(input2){
         }  
     })
 }
+
+// runs the spotify function
 spot(input2);
 
 
-
+// invoke a movie title and display details about the movie.
 request('http://www.omdbapi.com/?i=tt3896198&apikey=23fb74b2&t='+ input2 +'', function(error, response, body){
     
     if (input2 == null && !error && input === "movie-this" && response.statusCode === 200){
@@ -144,7 +136,7 @@ request('http://www.omdbapi.com/?i=tt3896198&apikey=23fb74b2&t='+ input2 +'', fu
 })
 
 
-
+// read the file and display movie details based on what is in the file.
 fs.readFile('./random.txt', 'utf8', function(error, data){
     var split = data.split(",");
     for(var i = 0; i < split.length; i++){
@@ -169,5 +161,3 @@ fs.readFile('./random.txt', 'utf8', function(error, data){
         })
     }
 });
-
-// spotify.search({type: 'track', query: input2}, function(err, data){
